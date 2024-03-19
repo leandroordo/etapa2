@@ -1,7 +1,23 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import { MdShoppingCart } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const ProductCard = ({ product }) => {
-  console.log(product);
+  const showToast = () => {
+    toast.success("Agregado al carrito", {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   return (
     <div className="product__card">
       <div className="card__image">
@@ -15,16 +31,14 @@ const ProductCard = ({ product }) => {
       </div>
       <div className="card__description">
         <h3 className="card__description-title">
-          <a href="#">{product.name}</a>
+          <Link href="#">{product.name}</Link>
         </h3>
         <div className="card__description-text">{product.desciption}</div>
         <div className="card__description-price">$ {product.price}</div>
-        <a href="#" className="button button-rounded">
+        <button className="button button-rounded" onClick={showToast}>
           Comprar
-          <svg className="cart" width="18" height="18">
-            {/* <use xlink:href="#cart"></use> */}
-          </svg>
-        </a>
+          <MdShoppingCart />
+        </button>
       </div>
     </div>
   );

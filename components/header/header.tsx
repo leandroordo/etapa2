@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import { MdSearch } from "react-icons/md";
 
 const Header = () => {
   return (
@@ -11,47 +15,44 @@ const Header = () => {
             </a>
             <ul className="navbar__nav">
               <li className="navbar__item">
-                <a className="navitem__link active" href="./index.html">
+                <Link className="navitem__link active" href="./">
                   Inicio
-                </a>
+                </Link>
               </li>
               <li className="navbar__item">
-                <a className="navitem__link" href="./aboutus.html">
+                <Link className="navitem__link" href="./aboutus.html">
                   Nosotros
-                </a>
+                </Link>
               </li>
               <li className="navbar__item">
-                <a className="navitem__link" href="./contact.html">
+                <Link className="navitem__link" href="./contact.html">
                   Contacto
-                </a>
+                </Link>
               </li>
               <li className="navbar__item">
-                <a
+                <Link
                   className="navitem__link dropdown__arrow dropdown"
                   href="#"
                   role="button"
                 >
                   Admin
-                </a>
+                </Link>
                 <ul className="dropdown__menu">
                   <li>
-                    <a href="./alta.html" className="dropdown__item">
+                    <Link href="./alta.html" className="dropdown__item">
                       Dar de alta
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </li>
             </ul>
             <div className="navbar__search">
               <div className="navbar__search-items">
-                <svg width="18" height="18">
+                {/* <svg width="18" height="18">
                   <use xlinkHref="#search"></use>
-                </svg>
-                <input
-                  type="text"
-                  className="form__control textbox"
-                  placeholder="Buscar..."
-                />
+                </svg> */}
+                <MdSearch />
+                <input type="text" placeholder="Buscar..." />
               </div>
             </div>
           </div>

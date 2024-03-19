@@ -37,6 +37,9 @@
   border-radius: 50rem;
   text-transform: capitalize;
 
+  svg {
+    margin-left: 0.5rem;
+  }
   &:hover {
     color: $color-white;
     background-color: $color-primary;

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -18,13 +19,13 @@ const Footer = () => {
               <h5>Accesos rápidos</h5>
               <ul className="footer__list">
                 <li className="footer__listitem">
-                  <a href="./index.html">Inicio</a>
+                  <Link href="./">Inicio</Link>
                 </li>
                 <li className="footer__listitem">
-                  <a href="./aboutus.html">Nosotros</a>
+                  <Link href="./aboutus.html">Nosotros</Link>
                 </li>
                 <li className="footer__listitem">
-                  <a href="./contact.html">Contacto</a>
+                  <Link href="./contact.html">Contacto</Link>
                 </li>
               </ul>
             </div>
@@ -34,13 +35,13 @@ const Footer = () => {
               <h5>Ayuda</h5>
               <ul className="footer__list">
                 <li className="footer__listitem">
-                  <a href="#">Preguntas frecuentes</a>
+                  <Link href="#">Preguntas frecuentes</Link>
                 </li>
                 <li className="footer__listitem">
-                  <a href="#">Privacidad</a>
+                  <Link href="#">Privacidad</Link>
                 </li>
                 <li className="footer__listitem">
-                  <a href="#">Términos y condiciones</a>
+                  <Link href="#">Términos y condiciones</Link>
                 </li>
               </ul>
             </div>
@@ -50,13 +51,13 @@ const Footer = () => {
               <h5>Redes sociales</h5>
               <ul className="footer__list">
                 <li className="footer__listitem">
-                  <a href="instagram.com">Instagram</a>
+                  <Link href="instagram.com">Instagram</Link>
                 </li>
                 <li className="footer__listitem">
-                  <a href="youtube.com">Youtube</a>
+                  <Link href="youtube.com">Youtube</Link>
                 </li>
                 <li className="footer__listitem">
-                  <a href="facebook.com">Facebook</a>
+                  <Link href="facebook.com">Facebook</Link>
                 </li>
               </ul>
             </div>
@@ -70,9 +71,9 @@ const Footer = () => {
                 </li>
                 <li className="footer__listitem">Tel (303) 456-789-000</li>
                 <li className="footer__listitem">
-                  <a href="mailto:info@jugueteriacosmica.com">
+                  <Link href="mailto:info@jugueteriacosmica.com">
                     info@jugueteriacosmica.com
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
