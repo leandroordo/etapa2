@@ -22,7 +22,11 @@ const Home = async () => {
             {products.map((product) => (
               <ProductCard
                 key={product.id}
-                product={JSON.parse(JSON.stringify(product))}
+                id={product.id}
+                name={product.name}
+                description={product.description}
+                photo={product.photo}
+                price={product.price}
               />
             ))}
           </div>

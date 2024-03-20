@@ -9,11 +9,7 @@ const productsSchema = new mongoose.Schema(
       min: 3,
       max: 200,
     },
-    desciption: {
-      type: String,
-      required: true,
-    },
-    password: {
+    description: {
       type: String,
       required: true,
     },

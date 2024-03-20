@@ -1,18 +1,23 @@
 "use client";
 
+import { Cart } from "@/api/types";
 import Image from "next/image";
 import Link from "next/link";
 import { MdSearch } from "react-icons/md";
 
-const Header = () => {
+export default function Header({
+  clearCartAction,
+}: {
+  clearCartAction: () => Promise<Cart>;
+}) {
   return (
     <header>
       <nav>
         <div className="container navbar__container">
           <div className="navbar__body">
-            <a className="navbar__logo">
+            <Link className="navbar__logo" href="/">
               <Image src="/logo.png" alt="Logo" width={100} height={95} />
-            </a>
+            </Link>
             <ul className="navbar__nav">
               <li className="navbar__item">
                 <Link className="navitem__link active" href="./">
@@ -48,9 +53,6 @@ const Header = () => {
             </ul>
             <div className="navbar__search">
               <div className="navbar__search-items">
-                {/* <svg width="18" height="18">
-                  <use xlinkHref="#search"></use>
-                </svg> */}
                 <MdSearch />
                 <input type="text" placeholder="Buscar..." />
               </div>
@@ -60,6 +62,4 @@ const Header = () => {
       </nav>
     </header>
   );
-};
-
-export default Header;
+}
