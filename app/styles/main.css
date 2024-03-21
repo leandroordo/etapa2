@@ -1234,7 +1234,7 @@ footer {
 .products__container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .product__card {

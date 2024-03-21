@@ -6,14 +6,16 @@ import { useDispatch } from "react-redux";
 
 export default function CartPopup({
   clearCartAction,
+  show
 }: {
-  clearCartAction: () => Promise<Cart>;
+  clearCartAction: () => Promise<Cart>,
+  show: boolean,
 }) {
   const dispatch = useDispatch();
   const cart = useCart();
 
   return (
-    <div className="cart__container">
+    <div className={show ? "cart__container active" : "cart__container"}>
       {cart.products.length === 0 && (
         <p>No hay nada en su carrito de compras.</p>
       )}
@@ -25,7 +27,7 @@ export default function CartPopup({
                 IMAGEN
                 {/* <Image></Image> */}
               </div>
-              <div className="cart__itemtitle">
+              <div className="cart__itemproductdetail">
                 <p className="cart__itemproductname">{product.name}</p>
                 <p className="cart__itemproductcantidad">
                   Cant: {product.quantity}
@@ -37,7 +39,7 @@ export default function CartPopup({
                   })}
                 </p>
               </div>
-              <div className="cart__itemproduct-delete">
+              <div>
                 <button className="button button-delete">
                   <MdDeleteOutline />
                 </button>
@@ -46,7 +48,11 @@ export default function CartPopup({
           ))}
         </ul>
       )}
-      <div></div>
+      <div className="cart__totalcontainer">
+        <p>Total:
+          <span className="cart__totalvalue">$16.17</span>
+        </p>
+      </div>
     </div>
   );
 }

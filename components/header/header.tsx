@@ -75,7 +75,7 @@ export default function Header({
                   {cart.products.length}
                 </span>
               </button>
-              {showCart && <CartPopup clearCartAction={clearCartAction} />}
+              <CartPopup clearCartAction={clearCartAction} show={showCart} />
             </div>
           </div>
         </div>
