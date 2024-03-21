@@ -22,6 +22,7 @@ export default async function ProductCard({
 }) {
   const addToCartAction = async () => {
     "use server";
+
     return await addToCart({
       id,
       name,

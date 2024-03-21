@@ -1,15 +1,21 @@
 "use client";
 
 import { Cart } from "@/api/types";
+import { useCart } from "@/app/store/store";
 import Image from "next/image";
 import Link from "next/link";
-import { MdSearch } from "react-icons/md";
+import { useState } from "react";
+import { MdOutlineShoppingBag, MdSearch } from "react-icons/md";
+import CartPopup from "../cartPopup/cartPopup";
 
 export default function Header({
   clearCartAction,
 }: {
   clearCartAction: () => Promise<Cart>;
 }) {
+  const cart = useCart();
+  const [showCart, setShowCart] = useState(false);
+
   return (
     <header>
       <nav>
@@ -56,6 +62,20 @@ export default function Header({
                 <MdSearch />
                 <input type="text" placeholder="Buscar..." />
               </div>
+            </div>
+            <div className="navbar__shoppingbag">
+              <button
+                className="button button-small"
+                onClick={() => {
+                  setShowCart(!showCart);
+                }}
+              >
+                <MdOutlineShoppingBag />
+                <span className="navbar__shoppingbag-badge">
+                  {cart.products.length}
+                </span>
+              </button>
+              {showCart && <CartPopup clearCartAction={clearCartAction} />}
             </div>
           </div>
         </div>

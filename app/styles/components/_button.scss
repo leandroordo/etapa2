@@ -46,3 +46,12 @@
     border-color: $color-primary;
   }
 }
+
+.button-small {
+  font-size: 1.3rem;
+  color: $color-secondary;
+  border: 1px solid transparent;
+  background-color: transparent;
+  border-color: $color-gray-200;
+  border-radius: 10rem;
+}
