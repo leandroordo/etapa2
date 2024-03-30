@@ -1,21 +1,39 @@
+"use client";
 import { Cart } from "@/api/types";
 import { useCart } from "@/app/store/store";
+import { setCart } from "@/app/store/store";
 import Image from "next/image";
-import { MdDeleteOutline } from "react-icons/md";
+import { MdDeleteOutline, MdOutlineClose } from "react-icons/md";
 import { useDispatch } from "react-redux";
 
 export default function CartPopup({
   clearCartAction,
-  show
+  removeProductAction,
+  closePopupAction,
+  show,
 }: {
-  clearCartAction: () => Promise<Cart>,
-  show: boolean,
+  clearCartAction: () => Promise<Cart>;
+  removeProductAction: (productId: number) => Promise<Cart>;
+  closePopupAction: () => void;
+  show: boolean;
 }) {
   const dispatch = useDispatch();
   const cart = useCart();
 
+  const getTotalAction = () => {
+    return cart.products.reduce(
+      (previousValue, { price, quantity }) => previousValue + price * quantity,
+      0
+    );
+  };
+
   return (
     <div className={show ? "cart__container active" : "cart__container"}>
+      <div className="cart__closebutton">
+        <button className="button button-cartpopup" onClick={closePopupAction}>
+          <MdOutlineClose />
+        </button>
+      </div>
       {cart.products.length === 0 && (
         <p>No hay nada en su carrito de compras.</p>
       )}
@@ -40,7 +58,12 @@ export default function CartPopup({
                 </p>
               </div>
               <div>
-                <button className="button button-delete">
+                <button
+                  className="button button-cartpopup"
+                  onClick={async () => {
+                    dispatch(setCart(await removeProductAction(product.id)));
+                  }}
+                >
                   <MdDeleteOutline />
                 </button>
               </div>
@@ -49,8 +72,11 @@ export default function CartPopup({
         </ul>
       )}
       <div className="cart__totalcontainer">
-        <p>Total:
-          <span className="cart__totalvalue">$16.17</span>
+        <p>
+          Total:
+          <span className="cart__totalvalue">
+            ${getTotalAction().toFixed(2)}
+          </span>
         </p>
       </div>
     </div>

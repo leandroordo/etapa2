@@ -3,7 +3,8 @@ import "./styles/main.scss";
 import Header from "../components/header/header";
 import Footer from "@/components/footer/footer";
 import StoreProvider from "./store/StoreProvider";
-import { getCart, clearCart } from "@/api/cart";
+import { getCart, clearCart, removeProduct } from "@/api/cart";
+import ToastProvider from "@/components/toast/toastProvider";
 
 export const metadata: Metadata = {
   title: "Juguetería Cósmica",
@@ -22,12 +23,20 @@ export default async function RootLayout({
     return await clearCart();
   };
 
+  const removeProductAction = async (productId: number) => {
+    "use server";
+    return await removeProduct(productId);
+  };
+
   return (
     <html lang="en">
       <body>
         <StoreProvider cart={cart}>
-          <Header clearCartAction={clearCartAction}></Header>
-          {children}
+          <Header
+            clearCartAction={clearCartAction}
+            removeProductAction={removeProductAction}
+          ></Header>
+          <ToastProvider>{children}</ToastProvider>
           <Footer></Footer>
         </StoreProvider>
       </body>

@@ -7,14 +7,22 @@ import Link from "next/link";
 import { useState } from "react";
 import { MdOutlineShoppingBag, MdSearch } from "react-icons/md";
 import CartPopup from "../cartPopup/cartPopup";
+import { useKeyboardShortcut } from "@/hooks/useKeyboard";
+import { useOutsideClick } from "@/hooks/useOutsideClick";
 
 export default function Header({
   clearCartAction,
+  removeProductAction,
 }: {
   clearCartAction: () => Promise<Cart>;
+  removeProductAction: (productId: number) => Promise<Cart>;
 }) {
   const cart = useCart();
   const [showCart, setShowCart] = useState(false);
+
+  const closePopup = () => setShowCart(false);
+  useKeyboardShortcut(["escape"], closePopup);
+  useOutsideClick(closePopup);
 
   return (
     <header>
@@ -72,10 +80,18 @@ export default function Header({
               >
                 <MdOutlineShoppingBag />
                 <span className="navbar__shoppingbag-badge">
-                  {cart.products.length}
+                  {cart.products.reduce(
+                    (previousValue, { quantity }) => previousValue + quantity,
+                    0
+                  )}
                 </span>
               </button>
-              <CartPopup clearCartAction={clearCartAction} show={showCart} />
+              <CartPopup
+                clearCartAction={clearCartAction}
+                removeProductAction={removeProductAction}
+                closePopupAction={() => setShowCart(false)}
+                show={showCart}
+              />
             </div>
           </div>
         </div>
