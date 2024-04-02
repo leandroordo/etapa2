@@ -15,10 +15,7 @@ export default async function ProductCard({
   name: string;
   description: string;
   price: number;
-  photo: {
-    src: string;
-    alt: string;
-  };
+  photo: string;
 }) {
   const addToCartAction = async () => {
     "use server";
@@ -28,7 +25,7 @@ export default async function ProductCard({
       name,
       description,
       price,
-      photo: { src: photo.src, alt: photo.alt },
+      photo,
     });
   };
 
@@ -36,8 +33,8 @@ export default async function ProductCard({
     <div className="product__card">
       <div className="card__image">
         <Image
-          src={photo.src}
-          alt={photo.alt}
+          src={photo}
+          alt={photo}
           width={300}
           height={260}
           className="card__image-fluid"

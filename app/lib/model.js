@@ -9,26 +9,55 @@ const productsSchema = new mongoose.Schema(
       min: 3,
       max: 200,
     },
-    description: {
-      type: String,
-      required: true,
-    },
     price: {
       type: Number,
       required: true,
     },
+    stock: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    brand: {
+      type: String,
+      required: false,
+    },
+    category: {
+      type: String,
+      required: false,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    longDescription: {
+      type: String,
+      required: false,
+    },
+    freeDelivery: {
+      type: Boolean,
+      required: false,
+    },
+    ageFrom: {
+      type: Number,
+      required: false,
+      min: 0,
+      max: 1000,
+    },
+    ageTo: {
+      type: Number,
+      required: false,
+      min: 0,
+      max: 1000,
+    },
     photo: {
-      src: {
-        type: String,
-      },
-      alt: {
-        type: String,
-      },
+      type: String,
+      required: false,
     },
   },
   { timestamps: true }
 );
 
 export default productsSchema;
-export const Products =
+export const Product =
   mongoose.models.productos || mongoose.model("productos", productsSchema);

@@ -4,6 +4,7 @@ export interface Cart {
     name: string;
     quantity: number;
     price: number;
+    photo: string;
   }[];
 }
 
@@ -12,8 +13,5 @@ export interface Product {
   name: string;
   description: string;
   price: number;
-  photo: {
-    src: string;
-    alt: string;
-  };
+  photo: string;
 }

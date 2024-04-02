@@ -19,15 +19,34 @@ export const addToCart = async (product: Product): Promise<Cart> => {
         id: product.id,
         price: product.price,
         quantity: 1,
+        photo: product.photo,
       });
     }
   }
   return cart;
 };
 
-export const removeProduct = async (productId: Number): Promise<Cart> => {
+export const removeProduct = async (productId: number): Promise<Cart> => {
   if (cart.products) {
     cart.products = cart.products.filter((product) => product.id !== productId);
+  }
+  return cart;
+};
+
+export const incrementProductQuantity = async (
+  productId: number,
+  amount: number
+): Promise<Cart> => {
+  if (cart.products) {
+    const product = cart.products.find((product) => product.id === productId);
+    if (product) {
+      console.log("Encontré");
+      console.log("Cant actual " + product.quantity);
+      product.quantity += amount;
+      console.log("Nueva cantidad " + product.quantity);
+
+      if (product.quantity === 0) await removeProduct(productId);
+    }
   }
   return cart;
 };

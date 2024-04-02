@@ -11,7 +11,9 @@ export const useKeyboardShortcut = (keys: Key[], callback: () => void) => {
             (key === "ctrl" && event.ctrlKey) ||
             (key === "shift" && event.shiftKey) ||
             (key === "alt" && event.altKey) ||
-            (typeof key === "string" && event.key.toLowerCase() === key)
+            (event.key &&
+              typeof key === "string" &&
+              event.key.toLowerCase() === key)
         )
       ) {
         callback();

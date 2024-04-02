@@ -58,6 +58,12 @@
       margin: 5px 0 8px;
       line-height: 14px;
     }
+
+    &productcantidad {
+      display: flex;
+      align-items: center;
+      column-gap: 5px;
+    }
   }
 }
 

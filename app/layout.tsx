@@ -3,7 +3,12 @@ import "./styles/main.scss";
 import Header from "../components/header/header";
 import Footer from "@/components/footer/footer";
 import StoreProvider from "./store/StoreProvider";
-import { getCart, clearCart, removeProduct } from "@/api/cart";
+import {
+  getCart,
+  clearCart,
+  removeProduct,
+  incrementProductQuantity,
+} from "@/api/cart";
 import ToastProvider from "@/components/toast/toastProvider";
 
 export const metadata: Metadata = {
@@ -28,6 +33,16 @@ export default async function RootLayout({
     return await removeProduct(productId);
   };
 
+  const incrementProductQuantityAction = async (productId: number) => {
+    "use server";
+    return await incrementProductQuantity(productId, 1);
+  };
+
+  const decrementProductQuantityAction = async (productId: number) => {
+    "use server";
+    return await incrementProductQuantity(productId, -1);
+  };
+
   return (
     <html lang="en">
       <body>
@@ -35,6 +50,8 @@ export default async function RootLayout({
           <Header
             clearCartAction={clearCartAction}
             removeProductAction={removeProductAction}
+            incrementProductQuantityAction={incrementProductQuantityAction}
+            decrementProductQuantityAction={decrementProductQuantityAction}
           ></Header>
           <ToastProvider>{children}</ToastProvider>
           <Footer></Footer>

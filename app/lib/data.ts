@@ -1,12 +1,12 @@
 "use server";
 import { connectToDB } from "./utils";
-import { Products } from "./model";
+import { Product } from "./model";
 
 export const fetchProducts = async () => {
   try {
     connectToDB();
 
-    const products = await Products.find();
+    const products = await Product.find();
     return products;
   } catch (err) {
     console.log(err);
