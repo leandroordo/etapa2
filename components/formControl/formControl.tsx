@@ -1,6 +1,6 @@
 export interface FormControlProps {
   inputType: string;
-  label: string;
+  label?: string;
   name: string;
   required?: boolean;
   pattern?: string;
@@ -14,12 +14,14 @@ export interface FormControlProps {
 const FormControl = (props: FormControlProps) => {
   return (
     <>
-      <label htmlFor={props.name}>
-        {props.label}
-        {props.required && "*"}
-      </label>
+      {props.label && (
+        <label htmlFor={props.name}>
+          {props.label}
+          {props.required && "*"}
+        </label>
+      )}
 
-      {props.inputType === "text" ? (
+      {props.inputType === "text" || props.inputType === "email" ? (
         <input
           type={props.inputType}
           name={props.name}

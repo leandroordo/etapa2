@@ -17,6 +17,8 @@
 }
 
 .banner__image-container {
+  position: relative;
+
   @include respond-to("medium") {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
@@ -31,9 +33,11 @@
   height: auto;
   border-radius: 1rem;
   margin-bottom: 0.5rem;
+  display: none;
 
   @include respond-to("large") {
     margin-bottom: 0;
+    display: block;
   }
 }
 

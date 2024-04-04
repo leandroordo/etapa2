@@ -1,8 +1,11 @@
 "use client";
 
-import addProduct from "@/app/lib/actions";
+import { addProduct } from "@/app/lib/actions";
 import FormControl from "@/components/formControl/formControl";
+import Toast from "@/components/toast/toast";
 import { useFormState } from "react-dom";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const initialState = {
   message: "",
@@ -10,6 +13,26 @@ const initialState = {
 
 const AddProductPage = () => {
   const [state, formAction] = useFormState(addProduct, initialState);
+
+  function handleSubmit(formData: FormData) {
+    try {
+      formAction(formData);
+
+      toast("✅ Producto guardado correctamente", {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <>
@@ -22,7 +45,7 @@ const AddProductPage = () => {
 
       <div className="parallax__buffer">
         <div className="container__main">
-          <form id="contact-form" action={formAction}>
+          <form action={handleSubmit}>
             <div className="container__row">
               <div className="container__item-left">
                 <h3>Datos del producto</h3>
@@ -31,7 +54,7 @@ const AddProductPage = () => {
                     inputType="text"
                     label="Nombre"
                     name="name"
-                    // pattern="^.{3,100}$"
+                    pattern="^.{3,100}$"
                     required={true}
                   ></FormControl>
                   <small data-formerror>{state?.errors?.name}</small>
@@ -42,7 +65,7 @@ const AddProductPage = () => {
                       inputType="text"
                       label="Precio"
                       name="price"
-                      // pattern="^([1-9]\d{0,5}(\.[0-9]{1,2})?|1000000(\.0{1,2})?)$"
+                      pattern="^([1-9]\d{0,5}(\.[0-9]{1,2})?|1000000(\.0{1,2})?)$"
                       required={true}
                     ></FormControl>
                     <small data-formerror>{state?.errors?.price}</small>
@@ -52,7 +75,7 @@ const AddProductPage = () => {
                       inputType="text"
                       label="Stock"
                       name="stock"
-                      // pattern="^(0|[1-9]\d{0,3})$"
+                      pattern="^(0|[1-9]\d{0,3})$"
                       required={true}
                     ></FormControl>
                     <small data-formerror>{state?.errors?.stock}</small>
@@ -98,8 +121,8 @@ const AddProductPage = () => {
                     label="Descripción corta"
                     name="description"
                     required={true}
-                    // minLength={10}
-                    // maxLength={255}
+                    minLength={10}
+                    maxLength={255}
                   ></FormControl>
                   <small data-formerror>{state?.errors?.description}</small>
                 </div>
@@ -128,9 +151,9 @@ const AddProductPage = () => {
                       inputType="text"
                       label="Edad desde"
                       name="ageFrom"
-                      // maxLength={2}
-                      // minValue={0}
-                      // maxValue={99}
+                      maxLength={2}
+                      minValue={0}
+                      maxValue={99}
                     ></FormControl>
                     <small data-formerror>{state?.errors?.ageFrom}</small>
                   </div>
@@ -139,9 +162,9 @@ const AddProductPage = () => {
                       inputType="text"
                       label="Edad hasta"
                       name="ageTo"
-                      // maxLength={2}
-                      // minValue={0}
-                      // maxValue={99}
+                      maxLength={2}
+                      minValue={0}
+                      maxValue={99}
                     ></FormControl>
                     <small data-formerror>{state?.errors?.ageTo}</small>
                   </div>
@@ -163,6 +186,7 @@ const AddProductPage = () => {
           </form>
         </div>
       </div>
+      <Toast />
     </>
   );
 };

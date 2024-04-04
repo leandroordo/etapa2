@@ -1,15 +1,14 @@
 import Image from "next/image";
+import BannerImage from "@/public/banner.jpg";
 
 const Banner = () => {
   return (
     <div className="banner__item">
       <div className="banner__image-container">
         <Image
-          src="/banner.jpg"
+          src={BannerImage}
           alt="La Juguetería"
-          className="banner__image"
-          width={462}
-          height={410}
+          className="banner2__image"
         />
       </div>
       <div className="banner__text-container">

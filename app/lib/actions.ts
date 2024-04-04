@@ -1,12 +1,11 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { Product } from "./model";
+import { ContactMessage, Product } from "./model";
 import { connectToDB } from "./utils";
-import { redirect } from "next/navigation";
 import { z } from "zod";
 
-const schema = z.object({
+const addProductSchema = z.object({
   name: z
     .string({
       invalid_type_error: "El nombre no es válido",
@@ -64,7 +63,41 @@ const schema = z.object({
     .lte(99, { message: "La edad hasta es muy grande" }),
 });
 
-export default async function addProduct(prevState: any, formData: FormData) {
+const addContactMessageSchema = z.object({
+  name: z
+    .string({
+      invalid_type_error: "Escriba un nombre válido",
+      description: "Su nombre",
+      required_error: "No olvide escribir su nombre",
+    })
+    .min(3, { message: "Su nombre es muy corto" })
+    .max(100, { message: "Escriba un nombre un poco más corto" }),
+
+  email: z
+    .string({
+      invalid_type_error: "Escriba una dirección válida de e-mail",
+      description: "Su dirección de e-mail",
+      required_error: "No olvide escribir su dirección de e-mail",
+    })
+    .email({ message: "Esta dirección de e-mail no es válida" })
+    .min(3, { message: "Su dirección de e-mail es muy corta" })
+    .max(100, { message: "Escriba una dirección de e-mail un poco más corta" }),
+
+  telephone: z
+    .string({
+      invalid_type_error: "Escriba un número de teléfono válido",
+      description: "Su número de teléfono",
+    })
+    .max(100, { message: "Escriba un número de teléfono un poco más corto" }),
+  message: z
+    .string({
+      invalid_type_error: "Escriba un mensaje válido",
+      description: "Su mensaje o consulta",
+    })
+    .max(4000, { message: "Escriba un mensaje o consulta un poco más corto" }),
+});
+
+export async function addProduct(prevState: any, formData: FormData) {
   const {
     name,
     price,
@@ -79,7 +112,7 @@ export default async function addProduct(prevState: any, formData: FormData) {
     photo,
   } = Object.fromEntries(formData);
 
-  const validatedFields = schema.safeParse({
+  const validatedFields = addProductSchema.safeParse({
     name,
     price,
     stock,
@@ -123,5 +156,41 @@ export default async function addProduct(prevState: any, formData: FormData) {
 
   return {
     message: "Se ha guardado el producto",
+  };
+}
+
+export async function addContactMessage(prevState: any, formData: FormData) {
+  const { name, email, telephone, message } = Object.fromEntries(formData);
+  const validatedFields = addContactMessageSchema.safeParse({
+    name,
+    email,
+    telephone,
+    message,
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  try {
+    connectToDB();
+    const newMessage = new ContactMessage({
+      name,
+      email,
+      telephone,
+      message,
+    });
+
+    await newMessage.save();
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error al guardar el mensaje");
+  }
+
+  //redirect("/");
+  return {
+    message: "Se ha guardado el mensaje",
   };
 }

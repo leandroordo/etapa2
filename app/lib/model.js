@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const productsSchema = new mongoose.Schema(
+export const productsSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -58,6 +58,35 @@ const productsSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default productsSchema;
+export const contactMessageSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      min: 3,
+      max: 200,
+    },
+    email: {
+      type: String,
+      required: true,
+      min: 3,
+      max: 255,
+    },
+    telephone: {
+      type: String,
+      required: false,
+      max: 255,
+    },
+    message: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
 export const Product =
   mongoose.models.productos || mongoose.model("productos", productsSchema);
+
+export const ContactMessage =
+  mongoose.models.mensajes || mongoose.model("mensajes", contactMessageSchema);
