@@ -98,9 +98,9 @@ Utilicé validación básica de HTML 5 en los formularios del lado del cliente y
 const addProductSchema = z.object({
     name: z
         .string({
-            invalid\_type\_error: "El nombre no es válido",
+            invalid_type_error: "El nombre no es válido",
             description: "Nombre del producto",
-            required\_error: "El nombre del producto es obligatorio",
+            required_error: "El nombre del producto es obligatorio",
         })
         .min(3, { message: "El nombre del producto es muy corto" })
         .max(100, { message: "El nombre del producto es muy largo" }),
